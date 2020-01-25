@@ -1,7 +1,7 @@
 {
   "name": "contact-keeper-server",
   "version": "0.1.0",
-  "description": "Contact manager app",
+  "description": "Contact manager app server",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

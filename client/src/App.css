@@ -366,6 +366,20 @@ button {
   font: inherit;
 }
 
+.btn-row {
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn-row a {
+  width: 110%;
+}
+.btn-row input {
+  margin: 0;
+  height: 100%;
+  width: 90%;
+}
+
 table th,
 table td {
   padding: 1rem;
@@ -461,7 +475,7 @@ table th {
 
 /* Utilities */
 .form-container {
-  max-width: 500px;
+  max-width: 400px;
   margin: auto;
   overflow: hidden;
   padding: 0 2rem;

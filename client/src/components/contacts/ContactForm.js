@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import ContactContext from "../../context/contact/contactContext";
+import PhoneFormat from "../../utils/PhoneFormat";
 
 const ContactForm = () => {
   const contactContext = useContext(ContactContext);
@@ -8,6 +9,11 @@ const ContactForm = () => {
   const initialState = { name: "", email: "", phone: "", type: "personal" };
 
   const [contact, setContact] = useState(initialState);
+  const [flag, setFlag] = useState(0);
+
+  const getPhoneNumber = value => {
+    return setContact({ ...contact, phone: value });
+  };
 
   useEffect(() => {
     if (current) {
@@ -24,6 +30,10 @@ const ContactForm = () => {
 
   const onSubmit = e => {
     e.preventDefault();
+    setFlag(1);
+    setTimeout(() => {
+      setFlag(0);
+    }, 1000);
     if (current) {
       updateContact(contact);
     } else {
@@ -37,7 +47,7 @@ const ContactForm = () => {
     clearCurrent();
   };
 
-  const { name, email, phone, type } = contact;
+  const { name, email, type } = contact;
   return (
     <form onSubmit={onSubmit}>
       <h2 className="text-primary">{current ? "Update Contact" : "Add Contact"}</h2>
@@ -56,13 +66,8 @@ const ContactForm = () => {
         value={email}
         onChange={onChange}
       />
-      <input
-        type="tel"
-        placeholder="Phone"
-        name="phone"
-        value={phone}
-        onChange={onChange}
-      />
+      <PhoneFormat phoneNumber={getPhoneNumber} clearInput={flag} />
+
       <h5>Contact Type</h5>
       <label htmlFor="personal">
         <input
@@ -93,7 +98,7 @@ const ContactForm = () => {
       </div>
       {current && (
         <div>
-          <button className="btn btn-light btn-block" onClick={clearAll}>
+          <button type="button" className="btn btn-light btn-block" onClick={clearAll}>
             Clear
           </button>
         </div>
